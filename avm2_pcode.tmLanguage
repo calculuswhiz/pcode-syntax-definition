@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>pcode</string>
+	</array>
+	<key>name</key>
+	<string>AVM2 pcode</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>comment</key>
+			<string>When you export pcode using JPEXS Free Flash Decompiler, you get a .pcode file.</string>
+			<key>match</key>
+			<string>\b(package|import|public|private|protected|static|dynamic|var|code|method|name|returns|body|maxstack|localcount|initscopedepth|maxscopedepth|param|paramname|flag|optional|const|dispid)\b</string>
+			<key>name</key>
+			<string>keyword.name.AS.keywords</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(add(_i)?|astype(late)?|bit(and|not|x?or)|bkpt(line)?|call(method|property|proplex|propvoid|static|super(void)?)?|checkfilter|coerce(_[abdiosu])?|construct(prop|super)?|convert(_[bdiosu])?|debug(file|line)?|declocal(_i)?|decrement(_i)?|deleteproperty|divide|dup|dxns(late)?|equals|esc_x(attr|elem)|find(def|property|propstrict)|get(descendants|global(scope|slot)|lex|local(_[0-3])?|property|scopeobject|slot|super)|greater(equals|than)|hasnext2?|if((strict)?(eq|ne)|false|true|n?[gl][et])|in|inclocal(_i)?|increment(_i)?|initproperty|instanceof|istype(late)?|jump|kill|label|less(equals|than)|lookupswitch|[lr]shift|modulo|multiply(_i)?|negate(_i)?|new(activation|array|catch|class|function|object)|next(name|value)|nop|not|pop(scope)?|push(byte|double|false|u?int|namespace|nan|null|scope|short|string|true|undefined|with)|return(value|void)|set((global)?slot|local(_[0-3])?|property|super)|strictequals|subtract(_i)?|swap|throw|timestamp|typeof|urshift)\b</string>
+			<key>name</key>
+			<string>support.constant.pcode.instructions</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b([a-zA-Z_]\w*)(?=\()\b</string>
+			<key>name</key>
+			<string>entity.name.function.functionnames</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(class|Boolean|Number|void|trait|String|u?int)\b</string>
+			<key>name</key>
+			<string>storage.type</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(?&lt;=:)\w+(?= =|;
+)\b</string>
+			<key>name</key>
+			<string>storage.type</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(?&lt;=var )\w+(?=[:;])</string>
+			<key>name</key>
+			<string>variable.parameter</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Assembly label/symbols.</string>
+			<key>match</key>
+			<string>\b(ofs[0-9a-f]{4}[:]?)</string>
+			<key>name</key>
+			<string>keyword.label.AVM2</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>variable.parameter</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>\b([a-zA-Z_]\w*):(\w+)\b</string>
+			<key>name</key>
+			<string>pcode.function.params</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(extends)\b</string>
+			<key>name</key>
+			<string>storage.other.extends</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(function)\b</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(null|true|false)\b</string>
+			<key>name</key>
+			<string>constant.language</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(?&lt;=const )[0-9A-Z]+(?=[:;])</string>
+			<key>name</key>
+			<string>constant.language</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?&lt;!\w)[+-]?([0-9]*\.?[0-9]+)(e[+-]?[0-9]+)?\b</string>
+			<key>name</key>
+			<string>constant.numeric.float</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?&lt;!\w)[-]?[0-9][0-9]*\b</string>
+			<key>name</key>
+			<string>constant.numeric.decimal</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>comment</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>\s*(;) (?i:([0-9a-f]{2} )*[0-9a-f]{2})$</string>
+			<key>name</key>
+			<string>markup.italic.markdown</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(".*?(?&lt;![^\\][\\])")</string>
+			<key>name</key>
+			<string>string.quoted</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.s</string>
+	<key>uuid</key>
+	<string>5676e49e-71d3-40d3-8090-bb6ddff63d29</string>
+</dict>
+</plist>

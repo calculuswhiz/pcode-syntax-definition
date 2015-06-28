@@ -1,0 +1,71 @@
+{
+    "patterns": [
+        {
+            "name": "keyword.name.AS.keywords", 
+            "match": "\\b(package|import|public|private|protected|static|dynamic|var|code|method|name|returns|body|maxstack|localcount|initscopedepth|maxscopedepth|param|paramname|flag|optional|const|dispid)\\b",
+            "comment" : "When you export pcode using JPEXS Free Flash Decompiler, you get a .pcode file."
+        },
+        {  "name": "support.constant.pcode.instructions",
+           "match": "\\b(add(_i)?|astype(late)?|bit(and|not|x?or)|bkpt(line)?|call(method|property|proplex|propvoid|static|super(void)?)?|checkfilter|coerce(_[abdiosu])?|construct(prop|super)?|convert(_[bdiosu])?|debug(file|line)?|declocal(_i)?|decrement(_i)?|deleteproperty|divide|dup|dxns(late)?|equals|esc_x(attr|elem)|find(def|property|propstrict)|get(descendants|global(scope|slot)|lex|local(_[0-3])?|property|scopeobject|slot|super)|greater(equals|than)|hasnext2?|if((strict)?(eq|ne)|false|true|n?[gl][et])|in|inclocal(_i)?|increment(_i)?|initproperty|instanceof|istype(late)?|jump|kill|label|less(equals|than)|lookupswitch|[lr]shift|modulo|multiply(_i)?|negate(_i)?|new(activation|array|catch|class|function|object)|next(name|value)|nop|not|pop(scope)?|push(byte|double|false|u?int|namespace|nan|null|scope|short|string|true|undefined|with)|return(value|void)|set((global)?slot|local(_[0-3])?|property|super)|strictequals|subtract(_i)?|swap|throw|timestamp|typeof|urshift)\\b"
+        },
+        {  "name": "entity.name.function.functionnames",
+           "match": "\\b([a-zA-Z_]\\w*)(?=\\()\\b"
+        },
+        {
+            "name": "storage.type",
+            "match": "\\b(class|Boolean|Number|void|trait|String|u?int)\\b"
+        },
+        {  "name": "storage.type",
+           "match": "\\b(?<=:)\\w+(?= =|;\n)\\b"
+        },
+        {  "name": "variable.parameter",
+           "match": "\\b(?<=var )\\w+(?=[:;])"
+        },
+        { "name": "keyword.label.AVM2",
+          "match": "\\b(ofs[0-9a-f]{4}[:]?)",
+          "comment": "Assembly label/symbols."
+        },
+        {  "name": "pcode.function.params",
+           "match": "\\b([a-zA-Z_]\\w*):(\\w+)\\b",
+           "captures": {
+               "1": { "name": "variable.parameter" },
+               "2": { "name": "storage.type" }
+           }
+        },
+        {  "name": "storage.other.extends",
+           "match": "\\b(extends)\\b"
+        },
+        {  "name": "support.function",
+           "match": "\\b(function)\\b"
+        },
+        {  "name": "constant.language",
+           "match": "\\b(null|true|false)\\b"
+        },
+        {  "name": "constant.language",
+           "match": "\\b(?<=const )[0-9A-Z]+(?=[:;])"
+        },
+        {  "name": "constant.numeric.float",
+           "match": "(?<!\\w)[+-]?([0-9]*\\.?[0-9]+)(e[+-]?[0-9]+)?\\b"
+        },
+        {
+            "name": "constant.numeric.decimal", 
+            "match": "(?<!\\w)[-]?[0-9][0-9]*\\b"
+        },
+        {  "name": "markup.italic.markdown",
+           "match": "\\s*(;) (?i:([0-9a-f]{2} )*[0-9a-f]{2})$",
+           "captures": {
+               "1": { "name": "comment" }
+           }
+        },
+        {
+            "name": "string.quoted",
+            "match": "(\".*?(?<![^\\\\][\\\\])\")"
+        }
+    ], 
+    "uuid": "5676e49e-71d3-40d3-8090-bb6ddff63d29", 
+    "fileTypes": [
+        "pcode"
+    ], 
+    "name": "AVM2 pcode",
+    "scopeName": "source.s"
+}
