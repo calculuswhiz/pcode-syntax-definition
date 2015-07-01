@@ -14,13 +14,29 @@
 			<key>comment</key>
 			<string>When you export pcode using JPEXS Free Flash Decompiler, you get a .pcode file.</string>
 			<key>match</key>
-			<string>\b(package|import|public|private|protected|static|dynamic|var|code|method|name|returns|body|maxstack|localcount|initscopedepth|maxscopedepth|param|paramname|flag|optional|const|dispid)\b</string>
+			<string>\b(package|public|private|protected|static|dynamic|var|code|const|method|name|returns|body|maxstack|localcount|initscopedepth|maxscopedepth|param|paramname|flag|optional|const|try|trait|dispid|slotid|value)\b</string>
 			<key>name</key>
 			<string>keyword.name.AS.keywords</string>
 		</dict>
 		<dict>
+			<key>captures</key>
+			<dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>string.quoted</string>
+				</dict>
+			</dict>
 			<key>match</key>
-			<string>\b(add(_i)?|astype(late)?|bit(and|not|x?or)|bkpt(line)?|call(method|property|proplex|propvoid|static|super(void)?)?|checkfilter|coerce(_[abdiosu])?|construct(prop|super)?|convert(_[bdiosu])?|debug(file|line)?|declocal(_i)?|decrement(_i)?|deleteproperty|divide|dup|dxns(late)?|equals|esc_x(attr|elem)|find(def|property|propstrict)|get(descendants|global(scope|slot)|lex|local(_[0-3])?|property|scopeobject|slot|super)|greater(equals|than)|hasnext2?|if((strict)?(eq|ne)|false|true|n?[gl][et])|in|inclocal(_i)?|increment(_i)?|initproperty|instanceof|istype(late)?|jump|kill|label|less(equals|than)|lookupswitch|[lr]shift|modulo|multiply(_i)?|negate(_i)?|new(activation|array|catch|class|function|object)|next(name|value)|nop|not|pop(scope)?|push(byte|double|false|u?int|namespace|nan|null|scope|short|string|true|undefined|with)|return(value|void)|set((global)?slot|local(_[0-3])?|property|super)|strictequals|subtract(_i)?|swap|throw|timestamp|typeof|urshift)\b</string>
+			<string>\b(import)[ 	]*(.*?)(?=;)\b</string>
+			<key>name</key>
+			<string>keyword.name.import</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>I tried to optimize, but it really didn't seem to make much of a difference. Oh, well.</string>
+			<key>match</key>
+			<string>\b(?&gt;getproperty|getlocal(_[0-3])?|add(_[di])?|applytype|astype(late)?|bit(and|not|or|xor)|bkpt(line)?|call(interface|method|property|proplex|propvoid|static|super(id|void)?)|checkfilter|coerce(_[abdiosu])?|concat|construct(prop|super)?|convert_[bdiosu]|debug(file|line)?|declocal(_i)?|decrement(_i)?|deleteproperty(late)?|divide|dup|dxns(late)?|equals|esc_x(attr|elem)|find(def|propglobal(strict)?|property|propstrict)|get(descendants|globalscope|globalslot|lex|outerscope|scopeobject|slot|super)|(greater|less)(equals|than)|hasnext[2]?|if(false|(strict)?(eq|ne)|true|n?[gl][et])|inclocal(_i)?|increment(_i)?|initproperty|instanceof|in|istype(late)?|jump|kill|label|[ls]f(32|64)|[ls]i(8|16|32)|lookupswitch|[lr]shift|modulo|multiply(_i)?|negate(_i)?|new(activation|array|catch|class|function|object)|next(name|value)|not|pop(scope)?|push(byte|constant|double|false|int|namespace|nan|null|scope|short|string|true|uint|undefined|with)|return(value|void)|setlocal(_[0-3])?|set(globalslot|property(late)?|slot|super)|strictequals|subtract(_i)?|swap|sxi(16?|8)|throw|typeof|urshift|nop)\b</string>
 			<key>name</key>
 			<string>support.constant.pcode.instructions</string>
 		</dict>
@@ -32,20 +48,19 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(class|Boolean|Number|void|trait|String|u?int)\b</string>
+			<string>\b(class|Boolean|Number|void|String|u?int|function)\b</string>
 			<key>name</key>
 			<string>storage.type</string>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(?&lt;=:)\w+(?= =|;
-)\b</string>
+			<string>\b(?&lt;=:)\w[\w.&lt;&gt;]*(?= =|;)</string>
 			<key>name</key>
 			<string>storage.type</string>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(?&lt;=var )\w+(?=[:;])</string>
+			<string>\b(?&lt;=var )\w+(?=([:;]| =))</string>
 			<key>name</key>
 			<string>variable.parameter</string>
 		</dict>
@@ -72,7 +87,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>\b([a-zA-Z_]\w*):(\w+)\b</string>
+			<string>\b([a-zA-Z_]\w*):(\w[\w.&lt;&gt;]+)\b</string>
 			<key>name</key>
 			<string>pcode.function.params</string>
 		</dict>
@@ -81,12 +96,6 @@
 			<string>\b(extends)\b</string>
 			<key>name</key>
 			<string>storage.other.extends</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\b(function)\b</string>
-			<key>name</key>
-			<string>support.function</string>
 		</dict>
 		<dict>
 			<key>match</key>
@@ -102,7 +111,13 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>(?&lt;!\w)[+-]?([0-9]*\.?[0-9]+)(e[+-]?[0-9]+)?\b</string>
+			<string>\b(EXPLICIT|HAS_OPTIONAL|HAS_PARAM_NAMES|IGNORE_REST|NEED_ACTIVATION|NEED_ARGUMENTS|NEED_REST|SET_DXNS)\b</string>
+			<key>name</key>
+			<string>constant.language.flags</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?&lt;!\w)[+-]?([0-9]*\.?[0-9]+)([eE][+-]?[0-9]+)?\b</string>
 			<key>name</key>
 			<string>constant.numeric.float</string>
 		</dict>
@@ -127,8 +142,16 @@
 			<string>markup.italic.markdown</string>
 		</dict>
 		<dict>
+			<key>comment</key>
+			<string>Exceptions.</string>
 			<key>match</key>
-			<string>(".*?(?&lt;![^\\][\\])")</string>
+			<string>\b(exception((start|end|target)[ 	]*[0-9]+)?)\b</string>
+			<key>name</key>
+			<string>invalid.warnings</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(["'].*?(?&lt;![^\\][\\])["'])</string>
 			<key>name</key>
 			<string>string.quoted</string>
 		</dict>
